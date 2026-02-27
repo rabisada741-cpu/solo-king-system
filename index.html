@@ -2,146 +2,129 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOLO KING V20: ABSOLUTE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SOLO KING | PRIVATE VAULT</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Orbitron:wght@400;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Orbitron:wght@900&display=swap');
+
+        :root { --king-gold: #ffd700; --deep-void: #000; --lightning-blue: #00fbff; }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #000; overflow: hidden; font-family: 'Orbitron', sans-serif; height: 100vh; display: flex; align-items: center; justify-content: center; }
-
-        /* V20: द गॉड कोर */
-        .v20-container {
-            width: 380px;
-            height: 700px;
-            background: radial-gradient(circle at center, #001529 0%, #000 100%);
-            border: 2px solid #5ce1ff;
-            border-radius: 60px 5px;
-            position: relative;
-            box-shadow: 0 0 150px rgba(0, 162, 255, 0.4);
-            padding: 40px;
-            text-align: center;
-            border-image: linear-gradient(to right, #5ce1ff, #ff0000, #9d00ff) 1;
+        body { 
+            background: var(--deep-void); color: #fff; font-family: 'Orbitron', sans-serif;
+            height: 100vh; overflow: hidden; display: flex; flex-direction: column;
+            border: 10px solid var(--king-gold); /* शाही बॉर्डर */
         }
 
-        .core-eye {
-            width: 200px;
-            height: 200px;
-            margin: 0 auto;
-            border: 4px solid #fff;
-            border-radius: 50%;
-            background: url('https://i.imgur.com/rM7Y7eP.png') center/cover;
-            box-shadow: 0 0 80px #5ce1ff;
-            animation: pulse-god 2s infinite alternate;
+        /* 🔱 Golden Lightning Background */
+        #aura {
+            position: absolute; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #001a33 0%, #000 80%);
+            z-index: -1; animation: pulseAura 5s infinite;
         }
 
-        @keyframes pulse-god {
-            from { transform: scale(1) rotate(0deg); filter: hue-rotate(0deg); }
-            to { transform: scale(1.1) rotate(10deg); filter: hue-rotate(360deg); }
+        /* 🔱 Security Gate (The Password) */
+        #security-gate {
+            position: fixed; inset: 0; background: #000; z-index: 999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .gate-status { color: var(--king-gold); font-size: 25px; letter-spacing: 10px; margin-bottom: 30px; text-shadow: 0 0 20px var(--king-gold); }
+        #pass-field { 
+            background: transparent; border: 2px solid var(--king-gold); color: #fff; 
+            font-size: 40px; text-align: center; padding: 20px; width: 80%; outline: none;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
         }
 
-        .king-title {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 32px;
-            color: #fff;
-            margin-top: 30px;
-            letter-spacing: 12px;
-            text-shadow: 0 0 20px #ff0000;
+        /* 🔱 Main UI */
+        .header { 
+            padding: 50px; text-align: center; background: rgba(0,0,0,0.9);
+            border-bottom: 2px solid var(--king-gold);
         }
+        .header h1 { font-family: 'Syncopate', sans-serif; font-size: 55px; color: var(--king-gold); letter-spacing: 25px; }
 
-        .status-feed {
-            height: 120px;
-            background: rgba(255,255,255,0.05);
-            border-left: 5px solid #5ce1ff;
-            margin-top: 30px;
-            padding: 15px;
-            font-size: 11px;
-            color: #5ce1ff;
-            text-align: left;
-            overflow: hidden;
+        #feed { flex: 1; padding: 50px; overflow-y: auto; scrollbar-width: none; }
+        .data-stream { 
+            background: rgba(0, 251, 255, 0.02); border-left: 20px solid var(--king-gold);
+            padding: 50px; margin-bottom: 60px; border-radius: 0 50px 50px 0;
+            animation: fadeIn 0.5s ease; 
         }
+        .eng-stream { font-size: 55px; font-weight: 900; color: #fff; margin-bottom: 25px; text-transform: uppercase; line-height: 1; }
+        .hin-stream { font-size: 38px; color: var(--lightning-blue); font-style: italic; }
 
-        .v20-btn {
-            width: 100%;
-            padding: 20px;
-            margin-top: 15px;
-            background: transparent;
-            border: 1px solid #5ce1ff;
-            color: #fff;
-            font-weight: 900;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            transition: 0.5s;
-        }
+        .console { padding: 60px; border-top: 5px solid var(--king-gold); display: flex; gap: 40px; align-items: center; }
+        #cmd-input { flex: 1; background: transparent; border: none; color: #fff; font-size: 45px; font-weight: 900; outline: none; }
+        .monarch-orb { width: 120px; height: 120px; background: var(--king-gold); border-radius: 50%; box-shadow: 0 0 80px var(--king-gold); cursor: pointer; }
 
-        .v20-btn:hover {
-            background: #fff;
-            color: #000;
-            box-shadow: 0 0 50px #fff;
-        }
-
-        .emergency-btn {
-            border-color: #ff0000;
-            color: #ff0000;
-            margin-top: 30px;
-            font-size: 20px;
-            animation: shake 0.2s infinite;
-        }
-
-        @keyframes shake {
-            0% { transform: translateX(0); }
-            50% { transform: translateX(5px); }
-            100% { transform: translateX(-5px); }
-        }
+        @keyframes pulseAura { 0%, 100% { opacity: 0.8; } 50% { opacity: 0.4; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <div class="v20-container">
-        <div class="core-eye"></div>
-        <h1 class="king-title">SOLO KING</h1>
-        
-        <div class="status-feed" id="feed">
-            [SYSTEM]: V20 प्रोटोकॉल सक्रिय है... <br>
-            [STATUS]: अजेय सम्राट जाग्रत... <br>
-            [WARNING]: वास्तविकता अस्थिर है...
-        </div>
+    <div id="aura"></div>
 
-        <button class="v20-btn" onclick="speak('Welcome back, Master Solo King. The world is yours.')">LISTEN TO SYSTEM</button>
-        <button class="v20-btn" onclick="triggerOverload()">OVERLOAD POWER</button>
-        <button class="v20-btn emergency-btn" onclick="destroyReality()">ARISE & CRUSH</button>
+    <div id="security-gate">
+        <p class="gate-status">IDENTITY REQUIRED</p>
+        <input type="password" id="pass-field" placeholder="PASSCODE" oninput="checkPass(this.value)">
     </div>
 
-    <script>
-        // फीचर 1: सिस्टम की आवाज़ (Text to Speech)
-        function speak(text) {
-            let msg = new SpeechSynthesisUtterance();
-            msg.text = text;
-            msg.lang = 'en-US';
-            msg.rate = 0.8;
-            window.speechSynthesis.speak(msg);
-            document.getElementById('feed').innerHTML += "<br>[VOICE]: " + text;
-        }
+    <header class="header"><h1>SOLO KING</h1></header>
 
-        // फीचर 2: पावर ओवरलोड (Vibration + Flash)
-        function triggerOverload() {
-            if (navigator.vibrate) navigator.vibrate([100, 100, 500, 100, 500]);
-            document.body.style.background = "#5ce1ff";
-            setTimeout(() => { document.body.style.background = "#000"; }, 200);
-            document.getElementById('feed').innerHTML += "<br>[POWER]: स्तर 9999% बढ़ा!";
-        }
+    <main id="feed">
+        <div class="data-stream">
+            <p class="eng-stream">PERSONAL VAULT SECURED. READY FOR COMMAND.</p>
+            <p class="hin-stream">निजी तिजोरी सुरक्षित। आदेश के लिए तैयार।</p>
+        </div>
+    </main>
 
-        // फीचर 3: दुनिया को हिला देने वाला एनीमेशन
-        function destroyReality() {
-            document.querySelector('.v20-container').style.transform = "scale(5) rotate(720deg)";
-            document.querySelector('.v20-container').style.opacity = "0";
-            speak("Reality crushed. Shadows remain.");
-            setTimeout(() => {
-                document.querySelector('.v20-container').style.transform = "scale(1) rotate(0deg)";
-                document.querySelector('.v20-container').style.opacity = "1";
-            }, 3000);
+    <div class="console">
+        <div class="monarch-orb" id="orb" onclick="startVoice()"></div>
+        <input type="text" id="cmd-input" placeholder="HUQM..." autocomplete="off">
+    </div>
+
+<script>
+    const API_KEY = "AIzaSyBV3Q3B6gQdb_xw0IBvVcnljElu_QagXCM";
+    const SECRET = "KING777"; // 🔱 आपका गुप्त पासवर्ड यहाँ बदलें
+
+    function checkPass(val) {
+        if(val.toUpperCase() === SECRET) {
+            document.getElementById('security-gate').style.display = 'none';
         }
-    </script>
+    }
+
+    const rec = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    rec.lang = 'hi-IN'; rec.continuous = true;
+
+    function startVoice() {
+        rec.start();
+        document.getElementById('orb').style.background = "#00fbff";
+        document.getElementById('orb').style.boxShadow = "0 0 100px #00fbff";
+    }
+
+    rec.onresult = (e) => {
+        const t = e.results[e.results.length - 1][0].transcript;
+        document.getElementById('cmd-input').value = t;
+        process(t);
+    };
+
+    async function process(q) {
+        const entry = document.createElement('div'); entry.className = 'data-stream';
+        document.getElementById('feed').appendChild(entry);
+        
+        try {
+            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+                method: "POST", headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ contents: [{ parts: [{ text: "Respond as the Infinite Intelligence for Solo King. Be royal and massive. English line first (Huge), Hindi second. Command: " + q }] }] })
+            });
+            const d = await res.json();
+            const r = d.candidates[0].content.parts[0].text.split('\n');
+            entry.innerHTML = `<p class="eng-stream">${r[0]}</p><p class="hin-stream">${r.slice(1).join(' ')}</p>`;
+            document.getElementById('feed').scrollTop = document.getElementById('feed').scrollHeight;
+            
+            const u = new SpeechSynthesisUtterance(r.slice(1).join(' '));
+            u.lang = 'hi-IN'; u.pitch = 0.4; window.speechSynthesis.speak(u);
+        } catch(e) { setTimeout(() => process(q), 300); }
+    }
+</script>
 </body>
 </html>
